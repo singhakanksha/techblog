@@ -1,19 +1,13 @@
-mat-card{
-  width: 80%;
-  margin: auto;
-  color: rgb(12, 0, 17);
-}
 mat-form-field,
-textarea{
+textarea {
   width: 100%;
 }
 
-mat-spinner{
+mat-spinner {
   margin: auto;
 }
 
-
-input[type="file"]{
+input[type="file"] {
   visibility: hidden;
 }
 
@@ -22,6 +16,6 @@ input[type="file"]{
   margin: 1rem 0;
 }
 
-.image-preview img{
+.image-preview img {
   height: 100%;
 }

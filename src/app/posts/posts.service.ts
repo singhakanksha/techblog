@@ -3,10 +3,11 @@ import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
 import { map } from "rxjs/operators";
 import { Router } from "@angular/router";
-import {environment} from "../../environments/environment"
+
+import { environment } from "../../environments/environment";
 import { Post } from "./post.model";
 
-const BackendUrl = environment.apiUrl+"/posts/";
+const BACKEND_URL = environment.apiUrl + "/posts/";
 
 @Injectable({ providedIn: "root" })
 export class PostsService {
@@ -19,7 +20,7 @@ export class PostsService {
     const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
     this.http
       .get<{ message: string; posts: any; maxPosts: number }>(
-        BackendUrl + queryParams
+        BACKEND_URL + queryParams
       )
       .pipe(
         map(postData => {
@@ -56,8 +57,8 @@ export class PostsService {
       title: string;
       content: string;
       imagePath: string;
-      creator: string
-    }>( BackendUrl + id);
+      creator: string;
+    }>(BACKEND_URL + id);
   }
 
   addPost(title: string, content: string, image: File) {
@@ -67,13 +68,11 @@ export class PostsService {
     postData.append("image", image, title);
     this.http
       .post<{ message: string; post: Post }>(
-        BackendUrl,
+        BACKEND_URL,
         postData
       )
       .subscribe(responseData => {
         this.router.navigate(["/"]);
-      },error => {
-        console.log(error)
       });
   }
 
@@ -95,14 +94,13 @@ export class PostsService {
       };
     }
     this.http
-      .put(BackendUrl + id, postData)
+      .put(BACKEND_URL + id, postData)
       .subscribe(response => {
         this.router.navigate(["/"]);
       });
   }
 
-  deletePost(postId: String) {
-    return this.http
-      .delete(BackendUrl + "/" + postId);
+  deletePost(postId: string) {
+    return this.http.delete(BACKEND_URL + postId);
   }
 }
